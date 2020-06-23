@@ -2,12 +2,16 @@ package main
 
 import (
 	"dump_reciever/controllers"
+	"dump_reciever/db"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"net/http"
 )
 
 func main() {
+
+	dataStorage := db.InitDB("storage.db")
+	db.Migrate(dataStorage)
 
 	e := echo.New()
 	// Middleware
@@ -25,7 +29,8 @@ func main() {
 		return c.String(http.StatusOK, "Hello, World!\n")
 	})
 
-	e.POST("/register", controllers.RegisterEvent) // Price endpoint
+	e.POST("api/v1/register", controllers.RegisterEvent(dataStorage)) // Price endpoint
+
 	// Run Server
 	e.Logger.Fatal(e.Start(":8000"))
 }
