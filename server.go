@@ -29,7 +29,8 @@ func main() {
 		return c.String(http.StatusOK, "Hello, World!\n")
 	})
 
-	e.POST("api/v1/register", controllers.RegisterEvent(dataStorage)) // Price endpoint
+	e.POST("api/v1/register", controllers.RegisterEvent(dataStorage))
+	e.GET("api/v1/events", controllers.GetRegisteredEvents(dataStorage))
 
 	// Run Server
 	e.Logger.Fatal(e.Start(":8000"))

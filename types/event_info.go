@@ -22,11 +22,16 @@ type Event struct {
 }
 
 type EventInfo struct {
+	ID              int         `json:"key"`
 	EventInfo       Event       `json:"event_info"`
 	ApplicationInfo Application `json:"application_info"`
 
 	UserId       string `json:"user_id"`
 	UserName     string `json:"user_name"`
 	ComputerName string `json:"computer_name"`
-	OsName       string `json:"os_name""`
+	OsName       string `json:"os_name"`
+}
+
+type EventsCollection struct {
+	Events []EventInfo `json:"events"`
 }

@@ -36,3 +36,9 @@ func RegisterEvent(database *sql.DB) echo.HandlerFunc {
 		return c.JSON(http.StatusOK, "Added successfully")
 	}
 }
+
+func GetRegisteredEvents(db *sql.DB) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		return c.JSON(http.StatusOK, models.GetRegisteredEvents(db))
+	}
+}
