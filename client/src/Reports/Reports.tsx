@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Link, Typography } from '@ayx/ui-core';
+import { makeStyles, Divider, Typography } from '@ayx/ui-core';
 import DataTable from '@ayx/ui-core-lab/DataTable';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
@@ -16,10 +16,9 @@ const reports = getReports();
 
 const useStyles = makeStyles(() => ({
   dataTableWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    overflow: 'auto',
+    display: 'block',
     flexGrow: 1,
+    overflow: 'hidden',
     padding: '8px',
     maxWidth: '1200px',
     width: '100%',
@@ -64,23 +63,25 @@ export const Reports = () => {
         Statistics
       </Typography>
       <Charts reports={events} />
+      <br />
       <Typography component="h5" gutterBottom variant="h5">
         Reports
       </Typography>
-      <div style={{ height: `${tableHeight}px` }}>
+      <div style={{ height: `${tableHeight}px`, width: '100%', boxSizing: 'border-box'}}>
         <DataTable
           columnDefs={reportsSchema}
           defaultColDef={{
             filter: true,
-            sortable: true
+            sortable: true,
+            resizable: true,
           }}
           modules={[ClientSideRowModelModule]}
           rowData={reportsMapper(events)}
           onRowClicked={({ data }) => {
             push(`/reports/${data.key}`);
           }}
-          onGridReady={({ columnApi }) => {
-            // columnApi.sizeColumnsToFit('100%'); //(reportsSchema.map(({ field }) => field));
+          onGridReady={({ api }) => {
+            api.sizeColumnsToFit();
           }}
         />
       </div>
