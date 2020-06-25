@@ -9,7 +9,7 @@ const InfoItem = ({ title, value }: any) => (
       <Typography>{title}</Typography>
     </Grid>
     <Grid item xs={6}>
-      <Typography>{value}</Typography>
+      <Typography color="textSecondary">{value}</Typography>
     </Grid>
   </Grid>
 );
